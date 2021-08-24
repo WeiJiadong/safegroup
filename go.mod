@@ -1,4 +1,4 @@
-module git.woa.com/vividwei/safegroup
+module github.com/WeiJiadong/safegroup
 
 go 1.17
 

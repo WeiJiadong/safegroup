@@ -22,7 +22,7 @@ func (s *safegroup) Go(f func() error) {
 			if r := recover(); r != nil {
 				buf := make([]byte, PanicBufLen)
 				buf = buf[:runtime.Stack(buf, false)]
-				fmt.Println("recover panic, r:", r)
+				fmt.Printf("[PANIC]:\t%+v\n%s\n", r, buf)
 			}
 		}()
 		return f()

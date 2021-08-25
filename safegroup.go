@@ -7,15 +7,15 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// PanicBufLen panic调用栈日志buffer大小，默认2048
+// PanicBufLen panic stack buffer size，default size is 2048
 var PanicBufLen = 2048
 
-// safegroup panic 安全的group结构定义
+// safegroup define
 type safegroup struct {
 	g errgroup.Group
 }
 
-// Go 启动一个协程，会接住panic
+// Go run a goroutine with recover panic
 func (s *safegroup) Go(f func() error) {
 	s.g.Go(func() error {
 		defer func() {
@@ -29,12 +29,12 @@ func (s *safegroup) Go(f func() error) {
 	})
 }
 
-// Wait等待协程结束
+// Wait wait goroutines finish
 func (s *safegroup) Wait() error {
 	return s.g.Wait()
 }
 
-// NewSafeGroup 生成一个实例
+// NewSafeGroup new a safegroup
 func NewSafeGroup() *safegroup {
 	return &safegroup{
 		g: errgroup.Group{},
